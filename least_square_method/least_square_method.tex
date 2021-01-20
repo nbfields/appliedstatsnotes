@@ -1,0 +1,76 @@
+%Preamble
+%---
+\documentclass{article}
+
+%packages
+%---
+\usepackage{amsmath} %Advanced math typesetting
+\usepackage[utf8]{inputenc} %Unicode support
+\usepackage{hyperref} %Add a link
+\usepackage{graphicx} %Add pictures
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage{wasysym}
+\usepackage{listings}
+\usepackage{wasysym}
+\usepackage{systeme}
+
+\graphicspath{{./images/}}
+
+\hypersetup{colorlinks=true,
+      linkcolor=blue,
+      filecolor=magenta,
+      urlcolor=cyan,
+}
+\begin{document}
+  \section*{Least Square Method}
+  \begin{itemize}
+    \item We covered this dude in linear algebra
+    \item And intro to scientific computing
+    \item And intro to data science
+    \item And here too
+    \item Estimate $ \beta_0, \beta_1 $ by mimimizing the function:
+      \[
+        S(\beta_0, \beta_1) = \sum_{i = 1}^{n}{(Y_i - \beta_0 - \beta_1 x_i)}^2
+      \] 
+      \[
+        = \sum_{i = 1}^{n} \epsilon_i^2
+      \] 
+    \item Sow how to do that? Take partial derivatives and set to 0
+      \[
+        \frac{\delta s}{\delta b_0} = -2 \sum_{i = 1}^{n} (Y_i - \beta_0 - \beta_1 x_i) = 0
+      \] 
+      \[
+        \frac{\delta s}{\delta b_1} = -2 \sum_{i = 1}^{n} (Y_i - \beta_0 - \beta_1 x_i) x_i = 0
+      \] 
+    \item So we have a system of linear equations. 2 equations, 2 unknowns, solve for $ \beta_0, \beta_1 $
+    \item Denote this as  $ * $
+    \item ($*$) equations are known as the Normal Equations, for reasons we'll get into later (Oh yeah they're orthogonal which is also called normal that makes sense)
+    \item We get:  \[
+        \hat{\beta_0} = \bar{y} - \hat{\beta_1} \bar{x}
+    \] 
+    \[
+      \hat{\beta_1} = \frac{S_{XY}}{S_{XX}}
+      = 
+    \frac{ \sum_{i = 1}^{n} (x_i - \bar{x}) (Y_i - \bar{Y})}{ \sum_{i = 1}^{n} {(x_i - \bar{x})}^2}
+    \] 
+  \item Result: We get the statistics $ \hat{\beta_0}, \hat{\beta_1} $ but they vary from sample to sample cuz they're statisticzzz
+  \item So the least squares equation is given by:
+    \[
+    \hat{Y} = \hat{\beta}_0 + \hat{\beta}_1x
+    \] 
+  \item Have we talked about $\sigma^2$? Nope. But we have to talk about $ \sigma^2 $. It's important
+  \item The residuals:
+    \[
+      \text{ Residuals are } e_i = Y_i - \hat{Y_i}, i = 1, 2, \ldots, n
+    \] 
+  \item $ Y_i $ is the observed value for  $ x_i, \hat{Y}_i $ is the predicted value based on the model you got from the least squares guy
+  \item is $ \epsilon_i $ the same as  $ e_i $? THEY ARE NOOOOT THE SAAAAAAAAAAME NOOOOO
+  \item Recall: $ \epsilon_i = y_i - \beta_0 - \beta_1 x_i $
+  \item But  $ e_i = y_1 - \hat{\beta}_0 - \hat{\beta}_1 x_i $
+  \item Similar but the  $ x_i $s in the first one are not known to us. Unobservable random variables! 
+  \item But the  $ e_i $s are observable because we are using estimates for the parameters
+  \item So the $ e_i $s are good representatives for the unobservable $ \epsilon $ dudes which we will neeeeeeeever knoooooooow
+  \end{itemize}
+\end{document}

@@ -1,0 +1,130 @@
+%Preamble
+%---
+\documentclass{article}
+
+%packages
+%---
+\usepackage{amsmath} %Advanced math typesetting
+\usepackage[utf8]{inputenc} %Unicode support
+\usepackage{hyperref} %Add a link
+\usepackage{graphicx} %Add pictures
+\usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage{wasysym}
+\usepackage{listings}
+\usepackage{wasysym}
+\usepackage{systeme}
+
+\graphicspath{{./images/}}
+
+\hypersetup{colorlinks=true,
+      linkcolor=blue,
+      filecolor=magenta,
+      urlcolor=cyan,
+}
+\begin{document}
+  \section*{Deterministic vs Stochastic}
+  \begin{itemize}
+    \item Make sure to go over the typed notes too!
+    \item Okay let's recap. We have:
+      \begin{itemize}
+        \item populations, population units
+        \item Sample, subset of population
+        \item Precise parameter, and statistic that estimates it
+        \item Types of variables
+        \item Statistical inferences like point estimation, confidence interval for range of values
+        \item Hypothesis testing: Assume something is true, see how unlikely your predictor is, accept or reject
+        \item If something lies outside of an $ n\% $ confidence interval that's equivalent to rejecting null hypothesis for that result
+      \end{itemize}
+    \item Notational convention:
+      \begin{itemize}
+        \item Underline: A vector, ex $  \underline{a},  \underline{b} $
+        \item Uppercase: Matrix, ex $ A, B $
+        \item hat: Statistic, eg  $ \hat{\theta} $
+        \item $ \underline{a}^T, A^T $: Transpose
+      \end{itemize}
+    \item Unless otherwise specified, vectors are column vectors and transposes are row bois
+    \item Ex 1: $ Y = x^2 $
+    \item That's deterministic. Same $ x $, you get same $ Y $ value, over and over, no matter how many times you do it
+    \item Ex 2:  $ Y = a + bx, a, b $ are known. $ a $ is intercept,  $ b $ is slope
+    \item $ a $ is the default output if $ 0 $ is input, and $ b $ tells you how much the output changes when the input increases by one unit
+    \item Important: When you talk about slope you \textit{increase} $ x $. It does \textbf{not} ``change''. It \textbf{increases}
+    \item This straight line is also deterministic. AKA mathematical
+    \item In general:
+      \[
+        Y = g(x), x \text{ is non-random }, Y \text{ is also non-random }
+      \] 
+    \item Problem: Particle boards are made. To examine this, boards produced at diff temperatures.\ Strength $ y $, temperature $ t $.
+    \item Will points be exactly on a curve? Probably not. Some randomness/stochastic stuff will happen
+    \item So you make a scatter plot
+    \item In general:
+      \[
+        Y = g(x) + \epsilon, x  \text{ is non-random, } \epsilon \text{ is random error term, }, Y \text{ is therefore now random }
+      \] 
+    \item $ Y $ is the response/dependent variable, $ x $ is the predictor/regressor/independent variable/covariate
+    \item Now: Impose assumptions on  $ \epsilon $:  They are IID with mean $ E(\epsilon) = 0 , V(\epsilon) = \sigma^2 < \infty $
+    \item From that it follows:
+      \[
+        E(Y) = E(g(x)) + E(\epsilon) = g(x) + 0 = g(x)
+      \] 
+      \[
+        V(Y) = \sigma^2 + V(g(x)) = \sigma^2 + 0 = \sigma^2
+      \] 
+    \item So what are we trying to find or achieve? $ g(x) $ I'm pretty sure
+    \item Yup $ g(x) $
+    \item Your mission, if you choose to accept it: Estimate $ g $
+    \item Let's relax the formal definition
+    \item aaaaaaaahhhh relaxing
+    \item In general: We might have several regressors like a billion or so
+       \[
+        x_1, x_2, \ldots, x_k
+      \] 
+      \[
+        Y = g(x_1, x_2, \ldots, x_k) + \epsilon
+      \] 
+    \item Simple case: Assume something about $ g $. The parametric form!
+    \item Parametric form  $ \Rightarrow $ functional form of $ g $ is known to us, apart from particular parameters  $  \underline{ \beta } $
+      \[
+        Y = g(x_1, x_2, \ldots, x_k; \underline{beta}) + \epsilon
+      \] 
+    \item For instance $ g = a + bx $ where we don't know  $ a, b $
+    \item More simple: Functional form of $ g $ is linear:
+       \[
+        Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_k x_k + \epsilon
+      \] 
+    \item That's the multiple linear regression model
+    \item The unknown parameters are:
+      \[
+      \underline{\beta} = {(\beta_0, \beta_1, \ldots, \beta_k)}^T; \sigma^2
+      \] 
+      \[
+        \Rightarrow (k + 2) \text{ unknown parameters }
+      \] 
+    \item We will work with this a lot
+    \item The simplest case of multiple linear regression: $ k = 1 $
+     \[
+      Y = \beta_0 + \beta_1 x + \epsilon
+    \] 
+  \item Intercept, slope, error (with mean 0). So $ Y $ is an  $ RV, E(Y) = \beta_0 + \beta_1(x), V(Y) = \sigma^2 < \infty $
+  \item This is the population regression model, and it's unknown to us because we don't know $ \underline{\beta} $ or $ \sigma $
+  \item So take a sample out of the population and estimate the parameters, and then we can use our estimated regression model, we can do something
+  \item So what are the  $ \beta $ boiz? The slope and the intercept? 
+    \[
+      \beta_0: \text{ Value of } E(Y) \text{ if } x = 0
+    \] 
+    \[
+      \Rightarrow \text{ Mean of distribution of } Y \text{ when } x = 0
+    \] 
+    \[
+      \beta_1: \text{ Amount of change in  } E(Y) \text{ by unit increase in } x
+    \] 
+  \item Always mention the mean of $ Y $ when thinking about these things!
+  \item Sample regression model: 
+    \[
+      y_i = \beta_0 + \beta_1 x_i + \epsilon_i, i = 1, \ldots, n
+    \] 
+  \item Target: Estimate $ \beta_0, \beta_1, \sigma^2 $ based on sample data
+  \item How? With least-squares ya dummy!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+  \end{itemize}
+\end{document}
